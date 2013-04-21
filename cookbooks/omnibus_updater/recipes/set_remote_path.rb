@@ -81,14 +81,14 @@ else
 end
 case install_via
 when 'deb'
-  if(pkgs_avail)
-    path_name = pkgs_avail.find_all{ |path|
-      ver = node[:omnibus_updater][:version] || '.'
-      path.include?('.deb') && path.include?(platform_name) && 
-      path.include?(platform_version) && path.include?(node.kernel.machine) &&
-      path.include?(ver)
-    }.sort.last
-  else
+  # if(false)
+  #   path_name = pkgs_avail.find_all{ |path|
+  #     ver = node[:omnibus_updater][:version] || '.'
+  #     path.include?('.deb') && path.include?(platform_name) && 
+  #     path.include?(platform_version) && path.include?(node.kernel.machine) &&
+  #     path.include?(ver)
+  #   }.sort.last
+  # else
     kernel_name = ""
     file_name = "chef_#{node[:omnibus_updater][:full_version]}.#{platform_name}.#{platform_version}_"
     if(node.kernel.machine.include?('64'))
@@ -99,7 +99,7 @@ when 'deb'
       kernel_name << 'i686'
     end
     file_name << '.deb'
-  end
+  # end
 when 'rpm'
   if(pkgs_avail)
     path_name = pkgs_avail.find_all{ |path|
@@ -118,7 +118,6 @@ end
 remote_omnibus_file = if(path_name)
     File.join(node[:omnibus_updater][:base_uri], path_name)
   else
-    puts "\n\n\nHERE I GO: #{node[:omnibus_updater][:base_uri]}"
     File.join(
       node[:omnibus_updater][:base_uri],
       platform_name,
