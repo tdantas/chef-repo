@@ -118,6 +118,7 @@ end
 remote_omnibus_file = if(path_name)
     File.join(node[:omnibus_updater][:base_uri], path_name)
   else
+    puts "\n\n\nHERE I GO: #{node[:omnibus_updater][:base_uri]}"
     File.join(
       node[:omnibus_updater][:base_uri],
       platform_name,
